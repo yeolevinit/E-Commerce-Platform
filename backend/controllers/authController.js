@@ -177,6 +177,10 @@ export const logoutUser = async (req, res) => {
         // This endpoint is mainly for consistency and can be used for logging/analytics
         res.status(200).json({
             success: true,
+            data: {
+                user: null,
+                token: null
+            },
             message: 'Logout successful'
         });
     } catch (error) {
