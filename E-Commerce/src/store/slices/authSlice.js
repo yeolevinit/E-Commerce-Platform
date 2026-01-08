@@ -5,13 +5,37 @@ import axios from '../../utils/axiosConfig';
 const token = localStorage.getItem('token');
 
 const initialState = {
-    user: null,
+    user: null, // User object (id, username, email)
     token: token ? token : null,
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: ''
 };
+
+// Check user session (Get Profile)
+export const getMe = createAsyncThunk(
+    'auth/getMe',
+    async (_, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().auth.token;
+            if (!token) {
+                return thunkAPI.rejectWithValue('No token');
+            }
+
+            const response = await axios.get('/auth/profile');
+            return response.data.data.user;
+        } catch (error) {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
 
 // Register user
 export const register = createAsyncThunk(
@@ -110,6 +134,24 @@ export const authSlice = createSlice({
             .addCase(logout.fulfilled, (state) => {
                 state.user = null;
                 state.token = null;
+            })
+            // Get Me (Persistence)
+            .addCase(getMe.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getMe.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.user = action.payload;
+            })
+            .addCase(getMe.rejected, (state) => {
+                state.isLoading = false;
+                state.user = null;
+                // If token is invalid, we might want to allow keeping it until explicit 401, 
+                // but usually checking profile failure means token issues.
+                // However, avoiding aggressive logout on network error is safer.
+                // We will only clear token if it's strictly an auth error, but for simplicity here we keep it.
+                // state.token = null; 
+                // localStorage.removeItem('token');
             });
     }
 });
