@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { login, reset } from '../store/slices/authSlice';
+import { motion } from "motion/react"
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -58,15 +59,15 @@ const Login = () => {
     }
 
     return (
-        <div className="max-w-md w-full mx-auto mt-10 p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+        <div className="max-w-md w-full mx-auto mt-10 p-8 bg-white rounded-xl shadow-lg border border-stone-100">
             <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
-                <p className="text-gray-500 mt-2">Sign in to your account</p>
+                <h1 className="text-3xl font-bold text-[#3C3D37]">Welcome Back</h1>
+                <p className="text-[#3C3D37] mt-2">Sign in to your account</p>
             </div>
 
             <form onSubmit={onSubmit} className="space-y-6">
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="email" className="block text-sm font-medium text-[#3C3D37] mb-1">
                         Email Address
                     </label>
                     <input
@@ -82,7 +83,7 @@ const Login = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="password" className="block text-sm font-medium text-[#3C3D37] mb-1">
                         Password
                     </label>
                     <input
@@ -97,21 +98,50 @@ const Login = () => {
                     />
                 </div>
 
-                <button
+                <motion.button
+                    whileHover={{
+                        scale: 1.1,
+                    }}
+                    whileTap={{
+                        scale: 0.85,
+                    }}
+
+                    transition={{
+                        duration: .2,
+                        ease: "easeInOut",
+
+                    }}
                     type="submit"
-                    className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+                    className="w-full py-3 px-4 bg-[#3C3D37] hover:bg-[#3C3D37] text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
                 >
                     Sign In
-                </button>
+                </motion.button>
             </form>
 
-            <div className="mt-6 text-center text-sm text-gray-600">
+            <div
+
+                className="mt-6 text-center text-sm text-[#3C3D37]">
                 Don't have an account?{' '}
-                <Link to="/register" className="text-blue-600 hover:text-blue-500 font-medium">
+                <motion.a
+
+                    whileHover={{
+                        scale: 1.1,
+                    }}
+                    whileTap={{
+                        scale: 0.85,
+                    }}
+
+                    transition={{
+                        duration: .2,
+                        ease: "easeInOut",
+
+                    }}
+
+                    href="/register" className="text-[#3C3D37] hover:text-[#3C3D37] font-medium">
                     Sign up
-                </Link>
+                </motion.a>
             </div>
-        </div>
+        </div >
     );
 };
 
