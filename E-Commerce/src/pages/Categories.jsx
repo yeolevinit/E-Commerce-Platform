@@ -1,32 +1,35 @@
 import React from 'react'
 import Header from '../components/Header'
-
-
+import ShopNow from '../components/ShopNow'
+import FeatureProduct from '../components/FeatureProduct'
+import Collection from '../components/Collection'
+import Review from '../components/Review'
+import Footer from '../components/Footer'
 
 
 
 const categories = [
     {
         id: 1,
-        title: "GIRLS",
+        title: "WOMEN",
         image:
             "https://images.unsplash.com/photo-1544005313-94ddf0286df2",
     },
     {
         id: 2,
-        title: "MEN",
+        title: "BOYS",
         image:
             "https://images.unsplash.com/photo-1521341957697-b93449760f30",
     },
     {
         id: 3,
-        title: "WOMEN",
+        title: "GIRLS",
         image:
             "https://i.pinimg.com/1200x/20/14/71/2014711500f68ff835126f8a004a7f3b.jpg",
     },
     {
         id: 4,
-        title: "BOYS",
+        title: "MEN",
         image:
             "https://i.pinimg.com/736x/6c/b9/b0/6cb9b064fc0d6bde9c84bdfaea05440f.jpg",
     },
@@ -63,7 +66,7 @@ const Categories = () => {
                                 <img
                                     src={category.image}
                                     alt={category.title}
-                                    className="w-full h-[420px] object-cover transition duration-500 group-hover:scale-105"
+                                    className="w-full h-[420px] object-cover object-top transition duration-500 group-hover:scale-105"
                                 />
 
                                 {/* Label */}
@@ -78,6 +81,10 @@ const Categories = () => {
 
                 </div>
             </section>
+
+            <Collection />
+
+            <Footer />
         </div>
     )
 }

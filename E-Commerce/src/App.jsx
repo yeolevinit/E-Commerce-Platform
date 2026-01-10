@@ -6,6 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AnimatePresence } from 'motion/react';
 
 import Categories from './pages/Categories';
+import Home from './pages/Home';
+import Shop from './pages/Shop';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import { getMe } from './store/slices/authSlice';
 
 // Wrapper for animated routing
@@ -15,7 +19,11 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </AnimatePresence>
   );

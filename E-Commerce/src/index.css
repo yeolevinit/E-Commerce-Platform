@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+
+.logo-text {
+    font-family: 'Pacifico', cursive;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll {
+    animation: scroll 20s linear infinite;
+    display: flex;
+    /* Ensure horizontal layout for children */
+    width: max-content;
+    /* Allow content to overflow for scrolling */
+}
+
 /* @theme {
     --color-primary: #14b8a6;
     --color-primary-hover: #0d9488;
