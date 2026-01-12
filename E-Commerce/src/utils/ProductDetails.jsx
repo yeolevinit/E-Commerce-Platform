@@ -24,7 +24,7 @@ export const products = [
         id: 4,
         title: "Classic Cotton Shirt",
         price: 749.00,
-        image: "https://images.unsplash.com/photo-1520974735194-6c8c4c6fdb94",
+        image: "https://images.unsplash.com/photo-1603252109303-2751441dd157",
         latest: true,
     },
     {
@@ -66,7 +66,7 @@ export const products = [
         id: 10,
         title: "Casual Checked Shirt",
         price: 689.75,
-        image: "https://images.unsplash.com/photo-1585386959984-a4155228b9c4",
+        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf",
         latest: true,
     },
 

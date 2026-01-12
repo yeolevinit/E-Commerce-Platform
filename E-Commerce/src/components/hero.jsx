@@ -2,6 +2,7 @@ import React from 'react'
 import { IoSearchOutline } from "react-icons/io5";
 import { TbShoppingBag } from "react-icons/tb";
 import { GoPerson } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 
 const hero = () => {
@@ -22,12 +23,12 @@ const hero = () => {
                     </p>
 
                     <div className="mt-6 flex flex-wrap gap-6 justify-center">
-                        <button className="bg-white text-black px-6 py-3 rounded-full text-base font-medium hover:bg-neutral-100 transition">
+                        <Link to="/shop" className="bg-white text-black px-6 py-3 rounded-full text-base font-medium hover:bg-neutral-100 transition">
                             Shop Now
-                        </button>
-                        <button className="border border-white px-6 py-3 rounded-full text-base font-medium hover:bg-white hover:text-black transition">
+                        </Link>
+                        <Link to="/categories" className="border border-white px-6 py-3 rounded-full text-base font-medium hover:bg-white hover:text-black transition">
                             Explore Collection
-                        </button>
+                        </Link>
                     </div>
 
                 </div>
