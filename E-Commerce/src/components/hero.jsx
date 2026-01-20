@@ -17,7 +17,7 @@ const hero = () => {
                         WEAR YOUR CONFIDENCE
                     </h1>
 
-                    <p className="mt-4 max-w-2xl text-base md:text-lg text-white/90">
+                    <p className="mt-4 max-w-4xl text-base md:text-lg text-white/90">
                         Modern and stylish fashion store website design with a clean layout and elegant product showcase.
                         Perfect for clothing brands, boutiques, and online fashion shops.
                     </p>

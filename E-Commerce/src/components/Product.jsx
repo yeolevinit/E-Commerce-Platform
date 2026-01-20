@@ -1,19 +1,31 @@
 import React from 'react';
 import { products } from '../utils/ProductDetails';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Autoplay } from 'swiper/modules';
+
 const Product = () => {
     return (
         <div className="max-w-7xl mx-auto px-6 py-16">
             {/* Header */}
             <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-semibold text-[#4a3728]">Latest Products</h2>
+                <div className="flex gap-3">
+                    <button className="swiper-button-prev-custom w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-gray-700 transition shadow-lg">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button className="swiper-button-next-custom w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-gray-700 transition shadow-lg">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             {/* Swiper Slider */}
@@ -42,7 +54,7 @@ const Product = () => {
                 }}
                 className="product-swiper"
                 autoplay={{
-                    delay: 1500,
+                    delay: 2000,
                     disableOnInteraction: false,
                 }}
             >
