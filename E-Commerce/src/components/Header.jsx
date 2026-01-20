@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { IoSearchOutline } from "react-icons/io5";
 import { TbShoppingBag } from "react-icons/tb";
 import { GoPerson } from "react-icons/go";
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import AuthModal from './AuthModal';
+import UserMenu from './UserMenu';
 
 // Import Swiper styles
 import 'swiper/css';
 
 const Header = () => {
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+    const { user } = useSelector((state) => state.auth);
     const announcement = "Enjoy 20% off on your first purchase & Free Shipping on Orders Over $50.";
 
     return (
@@ -65,9 +70,18 @@ const Header = () => {
                 <div className='flex items-center justify-between font-medium px-6 text-3xl gap-4 text-[#4a3728]'>
                     <IoSearchOutline />
                     <TbShoppingBag />
-                    <GoPerson />
+                    {user ? (
+                        <UserMenu />
+                    ) : (
+                        <button onClick={() => setIsAuthModalOpen(true)} className="hover:text-[#9c6b3f] transition-colors">
+                            <GoPerson />
+                        </button>
+                    )}
                 </div>
             </div>
+
+            {/* Auth Modal */}
+            <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
         </>
     );
 };
