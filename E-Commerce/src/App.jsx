@@ -12,7 +12,12 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Cart from './pages/Cart';
+import ProductDetails from './pages/ProductDetails';
+import CheckoutSuccess from './pages/CheckoutSuccess';
 import { getMe } from './store/slices/authSlice';
+import { fetchCart } from './store/slices/cartSlice';
+import { useSelector } from 'react-redux';
 
 // Wrapper for animated routing
 const AnimatedRoutes = () => {
@@ -24,6 +29,9 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout-success" element={<CheckoutSuccess />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
@@ -39,6 +47,14 @@ function App() {
   useEffect(() => {
     dispatch(getMe());
   }, [dispatch]);
+
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchCart());
+    }
+  }, [dispatch, user]);
 
   return (
     <Router>

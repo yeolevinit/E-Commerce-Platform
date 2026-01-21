@@ -1,5 +1,8 @@
-import React from 'react';
-import { products } from '../utils/ProductDetails';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
+import { fetchLatestProducts } from '../store/slices/productSlice';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
@@ -9,6 +12,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const Product = () => {
+    const dispatch = useDispatch();
+    const { latest, isLoading, isError } = useSelector((state) => state.products);
+
+    useEffect(() => {
+        dispatch(fetchLatestProducts(12));
+    }, [dispatch]);
     return (
         <div className="max-w-7xl mx-auto px-6 py-16">
             {/* Header */}
@@ -58,20 +67,23 @@ const Product = () => {
                     disableOnInteraction: false,
                 }}
             >
-                {products.filter(product => product.latest).map((product) => (
+                {latest && latest.map((product) => (
                     <SwiperSlide key={product.id}>
                         {/* Product Card */}
                         <div className="group">
                             <div className="bg-[#d9d9d9] rounded-2xl overflow-hidden">
-                                <img
-                                    src={product.image}
-                                    alt={product.title}
-                                    className="w-full h-[280px] object-cover transition group-hover:scale-105"
-                                />
+                                <Link to={`/product/${product._id}`}>
+                                    <motion.img
+                                        layoutId={`product-image-${product._id}`}
+                                        src={product.images[0]}
+                                        alt={product.name}
+                                        className="w-full h-[280px] object-cover transition group-hover:scale-105"
+                                    />
+                                </Link>
                             </div>
                             <div className="mt-4">
                                 <h3 className="text-sm font-medium text-[#4a3728]">
-                                    {product.title}
+                                    {product.name}
                                 </h3>
                                 <p className="text-sm text-[#4a3728] mt-1">
                                     ₹{product.price} INR

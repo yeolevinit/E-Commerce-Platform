@@ -3,6 +3,9 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
+import productRoutes from './routes/products.js';
+import cartRoutes from './routes/cart.js';
+import orderRoutes from './routes/orders.js';
 
 // Load environment variables
 dotenv.config();
@@ -49,11 +52,9 @@ app.get('/api/health', (req, res) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
-// app.use('/api/products', productRoutes);
-// app.use('/api/cart', cartRoutes);
-// app.use('/api/orders', orderRoutes);
-// app.use('/api/users', userRoutes);
-// app.use('/api/admin', adminRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

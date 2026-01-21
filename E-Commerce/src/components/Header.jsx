@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { IoSearchOutline } from "react-icons/io5";
 import { TbShoppingBag } from "react-icons/tb";
 import { GoPerson } from "react-icons/go";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-import AuthModal from './AuthModal';
 import UserMenu from './UserMenu';
 
 // Import Swiper styles
 import 'swiper/css';
 
 const Header = () => {
-    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+    const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
+    const { cart } = useSelector((state) => state.cart);
+    const cartItemsCount = cart?.items?.length || 0;
     const announcement = "Enjoy 20% off on your first purchase & Free Shipping on Orders Over $50.";
+
+    const handlePersonIconClick = () => {
+        if (!user) {
+            navigate('/login');
+        }
+    };
 
     return (
         <>
@@ -69,19 +76,23 @@ const Header = () => {
                 </div>
                 <div className='flex items-center justify-between font-medium px-6 text-3xl gap-4 text-[#4a3728]'>
                     <IoSearchOutline />
-                    <TbShoppingBag />
+                    <Link to="/cart" className="relative hover:text-[#9c6b3f] transition-colors">
+                        <TbShoppingBag />
+                        {cartItemsCount > 0 && (
+                            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                                {cartItemsCount}
+                            </span>
+                        )}
+                    </Link>
                     {user ? (
                         <UserMenu />
                     ) : (
-                        <button onClick={() => setIsAuthModalOpen(true)} className="hover:text-[#9c6b3f] transition-colors">
+                        <button onClick={handlePersonIconClick} className="hover:text-[#9c6b3f] hover:cursor-pointer transition-colors">
                             <GoPerson />
                         </button>
                     )}
                 </div>
             </div>
-
-            {/* Auth Modal */}
-            <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
         </>
     );
 };
