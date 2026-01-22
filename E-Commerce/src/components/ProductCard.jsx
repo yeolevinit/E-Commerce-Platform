@@ -1,8 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../store/slices/cartSlice';
+import { toast } from 'react-toastify';
 
 const ProductCard = ({ product }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth);
+
+    const handleAddToCart = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!user) {
+            toast.error('Please login to add items');
+            navigate('/login');
+            return;
+        }
+        dispatch(addToCart({ productId: product._id, quantity: 1 }));
+        toast.success('Added to cart!');
+    };
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -25,10 +43,7 @@ const ProductCard = ({ product }) => {
                 <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex justify-center gap-2 bg-gradient-to-t from-black/80 to-transparent">
                     <button
                         className="bg-accent text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-accent-hover transition-colors shadow-lg"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            // Add to cart logic here
-                        }}
+                        onClick={handleAddToCart}
                     >
                         Add to Cart
                     </button>

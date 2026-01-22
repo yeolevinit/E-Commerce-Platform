@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { addToCart } from '../store/slices/cartSlice';
+import { toast } from 'react-toastify';
 import { fetchLatestProducts } from '../store/slices/productSlice';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -14,6 +16,18 @@ import 'swiper/css/pagination';
 const Product = () => {
     const dispatch = useDispatch();
     const { latest, isLoading, isError } = useSelector((state) => state.products);
+    const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+
+    const handleAddToCart = (product) => {
+        if (!user) {
+            toast.error('Please login to add items');
+            navigate('/login');
+            return;
+        }
+        dispatch(addToCart({ productId: product._id, quantity: 1 }));
+        toast.success('Added to cart!');
+    };
 
     useEffect(() => {
         dispatch(fetchLatestProducts(12));
@@ -88,7 +102,10 @@ const Product = () => {
                                 <p className="text-sm text-[#4a3728] mt-1">
                                     ₹{product.price} INR
                                 </p>
-                                <button className="mt-2 text-sm text-[#9c6b3f] hover:underline">
+                                <button
+                                    onClick={() => handleAddToCart(product)}
+                                    className="mt-2 text-sm text-[#9c6b3f] hover:underline"
+                                >
                                     Add to Cart →
                                 </button>
                             </div>

@@ -21,6 +21,11 @@ const Shop = () => {
         dispatch(fetchProducts({ ...filters, page: 1 }));
     }, [dispatch, filters]);
 
+    // Reset quantity when selected product changes
+    useEffect(() => {
+        setQuantity(1);
+    }, [selectedId]);
+
     const handleCategoryChange = (category) => {
         dispatch(setFilters({ category: category === filters.category ? '' : category, page: 1 }));
     };

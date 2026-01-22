@@ -28,7 +28,7 @@ const Cart = () => {
         if (user) {
             dispatch(fetchCart());
         }
-    }, [dispatch, user]);
+    }, [dispatch, user, navigate]); // Added navigate to re-fetch if route changes back
 
     const handleCheckout = async () => {
         if (!shippingAddress.address || !shippingAddress.city || !shippingAddress.postalCode) {
